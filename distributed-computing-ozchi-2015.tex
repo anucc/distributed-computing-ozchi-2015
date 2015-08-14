@@ -55,7 +55,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Increase your cluster FLOPS 100x with this one weird trick}
+\title{Comparing usability of concurrency models}
 
 \numberofauthors{1}
 \author{
@@ -75,6 +75,69 @@ Ben Swift, Peter Davis, Henry Gardner\\
 Abstract goes here.
 \end{abstract}
 
+\section{Introduction to Concurrency}
+Concurrency refers to systems where there is more than one process existing at a time, whose component processes interact with each other by communication \cite{tpc} . It does not say anything about the processes executing at the same time, and concurrent systems on single processor machines are an example of this.
+
+Asynchronous definition
+
+Parallel definition
+
+Distributed definition
+
+\subsection{Concurrency Problems}
+Deadlock
+
+Livelock
+
+Thrashing
+
+\subsection{Concurrency layers}
+Introduce 'axes', with which concurrency models will be evaluated.
+
+Similar to the OSI model of splitting the network stack by each layer, each layer relies on the previous layer in order to function properly and provide services to the next layer up.
+
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{llll}
+ & Layer & Description & Example \\ \hline
+1 & Physical & Layer responsible for items such as: location, power, cooling, physical connections between machines & Physical computing hardware, network connnections \\
+2 & Communication & Layer responsible for allowing any processes to communicate in a common fashion & MPI, ZeroMQ, Pointers \\
+3 & Concurrency & Layer responsible for organising concurrent execution of code. & BSP, Actor, CSP, Threads \\
+4 & Algorithmic Skeleton/Topology & Layer responsible for organising and directing the interconnections between concurrent processes. This may correspond to the physical layout of the machines. & Farm, pipe, map, divide and conquer\\
+5 & Solution Algorithm & Layer responsible for providing a solution to the problem being tasked. & FFT, MapReduce, simulations
+\end{tabular}
+\end{table}
+
+\section{Usability in a Programming Context}
+Need some programming language usability metrics which are shown to improve software quality.
+
+\section{Concurrency Models}
+\subsection{Threads}
+
+
+\subsection{BSP}
+Original paper advocated distributed memory using hashing
+Modern implementations such as Pregel and Apache Giraph use a messaging system.
+Supersteps within which it is assumed that no synchronisation is required
+End of superstep a global synchronisation step
+
+\subsection{Actor}
+Independent workers
+Messaging system, mailboxes
+
+\subsection{CSP}
+Go channels and clojures core.async
+
+\subsection{}
+
+\section{Comparing Models}
+
+\section{Conclusion}
+
+
+
 % \begin{figure}
 % \centering
 % \epsfig{file=fly.eps, height=1in, width=1in}
@@ -85,3 +148,8 @@ Abstract goes here.
 \bibliographystyle{abbrv}
 \bibliography{distributed-computing-ozchi-2015}
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
