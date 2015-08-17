@@ -87,9 +87,15 @@ Distributed definition
 \subsection{Concurrency Problems}
 Deadlock
 
+
 Livelock
 
+
+Race Conditions
+Where the outcome of the program is non-deterministic due to incorrect assumptions made about the sequence of completed actions.
+
 Thrashing
+Moving quickly between execution states or processes, so as to spend more time communicating changes between the various running processes than spending computational time within a process.
 
 \subsection{Concurrency layers}
 Introduce 'axes', with which concurrency models will be evaluated.
@@ -111,7 +117,13 @@ Similar to the OSI model of splitting the network stack by each layer, each laye
 \end{table}
 
 \section{Usability in a Programming Context}
-Need some programming language usability metrics which are shown to improve software quality.
+Usability is typically considered as a metric of software quality, and is defined by \cite{9126} as: ``The capability of the software product to be understood, learned, used and attractive to the user, when used under specified conditions.'' However, this definition is aimed at end users encountering finished softaare products, rather than being aimed at the programmer who is engaged in making th software.
+
+Programmers face a separate set of usability issues when writing software. Usability issues can ariise from the Computer Assisted Engineering Tools (CASE), from the usage of a third party library, or from a particular softare architectural pattern. The last item is of particualr interest when working with concurrenct and sitributed system, as these software patterns are notorious for being hard to reason about and hence have ppor usability.
+
+In order to explore the usability of various concurrency models we borrow the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, which was initially developed to explore the productivity of visual programming environments but has been used more broadly in areas such as programming language evaluation \cite{enpl}, and 
+
+
 
 \section{Concurrency Models}
 \subsection{Threads}
@@ -134,8 +146,26 @@ Go channels and clojures core.async
 
 \section{Comparing Models}
 
-\section{Conclusion}
+Hidden Dependencies
+Recovering the mental representation from the concurrent program is difficult, as there is not necessarily any sequential manner in which the program may operate. As such, for each process in a concurrent system there are hidden dependencies in the form of the other processes in the system, which may be in any number of states and producing any number of communications to the process being considered.
 
+Viscosity/Fluidity
+The viscoisity of a concurrent program is hard to generalize. On one hand, the program may be very fluid, as if it is a operation that is replicated is performed across many nodes with little or no variance in each nodes funciton, then the program is very fluid as any changes made only need to be made to a single part of the code, and this code will be replicated to all processes.
+
+However, if the concurrent program  has manny different nodes with different behaviours and functions then it may be a viscous procedure to any part of the program, as the flow on effects from that change will need to be tracked and accounted for in the downstream or dependent nodes.
+
+Premature commitment
+Concurrent programs encourage some degree of premature commitment from the programmer, particularly along the concurrecy layers. Before being able to attack the root of the probelm they are trying to solve, the programmer will need to take into account the concurrency model, the skeleton algorithm and the communication method. Whether the problem is being solved via a workflow style DAG topology or will determine the structure of the concurrency model, considerations such as whether messages between processes can be buffered or must be synchronous will affect how they can write the solution.
+
+Role Expressiveness
+Role expressiveness is related to how easily the user can discern the purpose of a particular component, and hence create a mental model of how the system works.. Concurrent systems do not offer any particular advantage or disadvantage in this regard; they may provide simpler methods of expressiveness by having each process perform a single easily identifiable role, allowing the user to identify the system purpose as a simple workflow. More complicdated concurrent systems where each process handles multiple functions within the system may cause the programmer difficulty in identify the role of particular system components. 
+
+Increasing the role expressivenesss of a concurrent system can be thought of as decreasing the number of functions that a particular process is required to complete, thereby allowing the programmer to easily identify the role of each process and its place within the overall system. This may come a cost of less performant system, greater hardware requirements to support the greater number of simpler concurrency nodes, or may be completely impossible if the solution demands. 
+
+Hard Mental Operations
+Not all mental operations are equivalent, and concurrent programmings non-sequential execution model is a ripe ground for misunderstanding. stuff goes here
+
+\section{Conclusion}
 
 
 % \begin{figure}
