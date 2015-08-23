@@ -146,30 +146,28 @@ In order to explore the usability of various concurrency models we borrow the Co
 Recovering the mental representation from the concurrent program is difficult, as there is not necessarily any sequential manner in which the program may operate. As such, for each process in a concurrent system there are hidden dependencies in the form of the other processes in the system, which may be in any number of states and producing any number of communications to the process being considered.
 
 \subsection{Viscosity/Fluidity}
-The viscoisity of a concurrent program is hard to generalize. On one hand, the program may be very fluid, as if it is a operation that is replicated is performed across many nodes with little or no variance in each nodes funciton, then the program is very fluid as any changes made only need to be made to a single part of the code, and this code will be replicated to all processes.
-
-However, if the concurrent program  has manny different nodes with different behaviours and functions then it may be a viscous procedure to any part of the program, as the flow on effects from that change will need to be tracked and accounted for in the downstream or dependent nodes.
+The viscoisity of a concurrent program is hard to generalize. On one hand, the program may be very fluid if it is an operation that is replicated across many nodes with little or no variance in each nodes funciton. In this case then the program is very fluid as any changes made only need to be made to a single part of the code, and this code will be replicated to all processes. However, if the concurrent program has many different nodes with different behaviours and functions then it may be a viscous procedure to any part of the program, as the flow on effects from that change will need to be tracked and accounted for in the downstream or dependent nodes.
 
 \subsection{Premature commitment}
-Concurrent programs encourage some degree of premature commitment from the programmer, particularly along the concurrecy layers. Before being able to attack the root of the probelm they are trying to solve, the programmer will need to take into account the concurrency model, the skeleton algorithm and the communication method. Whether the problem is being solved via a workflow style DAG topology or will determine the structure of the concurrency model, considerations such as whether messages between processes can be buffered or must be synchronous will affect how they can write the solution.
+Concurrent programs encourage some degree of premature commitment from the programmer, particularly along the concurrecy layers. Before being able to attack the root of the probelm they are trying to solve, the programmer will need to take into account the concurrency model, the skeleton algorithm, the physical hardware available, and the communication method. Whether the problem is being solved via a directed acyclic graph (DAG) topology or via a grid topoology will determine the structure of the concurrency model, considerations such as whether messages between processes can be buffered or must be synchronous will affect how they can write the solution.
 
 \subsection{Role Expressiveness}
-Role expressiveness is related to how easily the user can discern the purpose of a particular component, and hence create a mental model of how the system works.. Concurrent systems do not offer any particular advantage or disadvantage in this regard; they may provide simpler methods of expressiveness by having each process perform a single easily identifiable role, allowing the user to identify the system purpose as a simple workflow. More complicdated concurrent systems where each process handles multiple functions within the system may cause the programmer difficulty in identify the role of particular system components. 
+Role expressiveness is related to how easily the user can discern the purpose of a particular component, and hence create a mental model of how the system works. Concurrent systems do not offer any particular advantage or disadvantage in this regard; they may provide simpler methods of expressiveness by having each process perform a single easily identifiable role, allowing the user to identify the system purpose as a simple workflow, but more complicdated concurrent systems where each process handles multiple functions within the system may cause the programmer difficulty in identify the role of particular system components. 
 
 Increasing the role expressivenesss of a concurrent system can be thought of as decreasing the number of functions that a particular process is required to complete, thereby allowing the programmer to easily identify the role of each process and its place within the overall system. This may come a cost of less performant system, greater hardware requirements to support the greater number of simpler concurrency nodes, or may be completely impossible if the solution demands. 
 
 \subsection{Hard Mental Operations}
-Not all mental operations are equivalent, and concurrent programmings non-sequential execution model is a ripe ground for misunderstanding. stuff goes here
+Not all mental operations are equivalent, and non-sequential program execution is commonly cited as a common hard mental opeation. Many of the concurrent tools try to abstract away as much of the non-sequential operations as possible, leaving the programmer to only need to consider a set of related sequential steps. 
 
 \section{Applying CD to Select Concurrent Models}
-The CD framework allows us to examine some (hopefully) orthogonal and how they relate to some concurrent models. Three models from different levels of the concurrency layer are using the CD framework eleements to guide the analysis.
+The CD framework allows us to examine some (hopefully) orthogonal congnitive concepts and how they relate to some concurrent models. Three models from different levels of the concurrency layer are chosen and examined.
 
 \subsection{MPI}
 \subsubsection{Hidden Dependencies}
 
 \subsubsection{Viscosity/Fluidity}
 
-\subsubsection{Premature commitment}
+\subsubsection{Premature Commitment}
 
 \subsubsection{Role Expressiveness}
 
