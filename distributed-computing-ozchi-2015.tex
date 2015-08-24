@@ -131,15 +131,33 @@ Developed from work on Resilient Distributed Datasets (RDDs)  \cite{zaharia14:_a
 \end{itemize}
 
 \section{HCI in concurrency}
-HCI is concerned with the usage, implementation and perception of computers by humans. As outlined above, concurrent programming poses a particuarly complicated set of problems for programmers due to its non-sequential nature. 
+HCI is concerned with the usage, implementation and perception of computers by humans. This paper is interested in the usability of concurrent systems. 
+
+The increasing focus on multiprocessor and distributed systems has meant that 
+
+Concurrent programming poses a particuarly complicated set of problems for programmers due to its non-sequential nature, being hard to reason about, hard to implement and hard to maintain. 
+
+
+Usability is typically considered as a metric of software quality, and is defined by \cite{9126} as: ``The capability of the software product to be understood, learned, used and attractive to the user, when used under specified conditions.'' Normally this definition is aimed at end users encountering finished software products, rather than being aimed at the programmer who is engaged in making the software.
+
+
+
+
+
+Programmers face a separate set of usability issues when writing software.  software patterns are notorious for being hard to reason about and hence have poor usability.
+
+In order to explore the usability of various concurrency models we borrow the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, 
+
+
+
+which was initially developed to explore the productivity of visual programming environments but has been used more broadly in areas such as programming language evaluation \cite{enpl}, and 
+
+are the users’ intended activities adequately supported by the structure of the information artifact
+
 
 We consider some of the tools used for concurrent programming and examine how these tools aim to provide a more productive, safe or understandable environment for a programmer wishing to create concurrent programs. We approach these aims from the standpoint that many of the porblems present in concurrent programming arise as a result of a lack of 'usability' of concurrent paradigms and tools.
 
-Usability is typically considered as a metric of software quality, and is defined by \cite{9126} as: ``The capability of the software product to be understood, learned, used and attractive to the user, when used under specified conditions.'' However, this definition is aimed at end users encountering finished softaare products, rather than being aimed at the programmer who is engaged in making the software.
 
-Programmers face a separate set of usability issues when writing software. Usability issues can ariise from the Computer Assisted Engineering Tools (CASE), from the usage of a third party library, or from a particular softare architectural pattern. The last item is of particular interest when working with concurrent and distributed system, as these software patterns are notorious for being hard to reason about and hence have poor usability.
-
-In order to explore the usability of various concurrency models we borrow the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, which was initially developed to explore the productivity of visual programming environments but has been used more broadly in areas such as programming language evaluation \cite{enpl}, and 
 
 \subsection{Hidden Dependencies}
 
@@ -163,26 +181,15 @@ Not all mental operations are equivalent, and non-sequential program execution i
 The CD framework allows us to examine some (hopefully) orthogonal congnitive concepts and how they relate to some concurrent models. Three models from different levels of the concurrency layer are chosen and examined.
 
 \subsection{MPI}
-\subsubsection{Hidden Dependencies}
+MPI has a minimum amount of abstractions, using a large but fairly basic api for programmers to utilise in generating their concurrent systems.
 
-\subsubsection{Viscosity/Fluidity}
+This minimum amount of abstractions improves the visibility of the system
 
-\subsubsection{Premature Commitment}
+Can also increase the viscosity, any change made to 
 
-\subsubsection{Role Expressiveness}
+\subsection{Threads & Shared Memory}
+The threading model of concurrency typically uses 
 
-\subsubsection{Hard Mental Operations}
-
-\subsection{Threads}
-\subsubsection{Hidden Dependencies}
-
-\subsubsection{Viscosity/Fluidity}
-
-\subsubsection{Premature commitment}
-
-\subsubsection{Role Expressiveness}
-
-\subsubsection{Hard Mental Operations}
 
 \subsection{Apache Spark}
 \subsubsection{Hidden Dependencies}
