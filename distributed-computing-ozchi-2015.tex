@@ -30,33 +30,32 @@ Ben Swift, Peter Davis, Henry Gardner\\
 Abstract goes here.
 \end{abstract}
 
-\section{ Concurrency}
-This paper explores concurrency with the aim of describing concurrent programming from a HCI viewpoint. The field of concurrent processing is notable for having mutliple applications, architectures and problems that sequential programming paradigms do not have. This exploration is interesting as the primary constraint in the development of quality (as defined by \cite{9126}) concurrent systems is the inability of the programmer to develop using the prevalent concrrent tools.
+\section{Introduction}
+The increasing focus on multiprocessor and distributed systems has necessitated a corresponding rise in the need for programming systems that can exploit this hardware. Systems that can take advantage of multiple processors, where they have more than a single process running simultaneously, are described as being concurrent.
 
-We start by introducing a conceptual model similar to the Open Systems Interconnect (OSI) Model but intended for use in understanding concurency concepts. We make the argument that all implemented concurrent solutions utilise these concurrency concepts, whether or not they are explicitly or implicitly mentioned.
+This paper explores concurrency with the aim of describing concurrent programming from a HCI viewpoint, particularly in regards to the usability of various concurrency tools such as programming libraries or frameworks.
 
-We then introduce 'Cognitive Dimensions', an established (by  \cite{green89:_cognit_dimen_notat}) and broad framework for evaluating cognitive systems in general, and relate some concurrent concepts in terms of the cognitive dimensions framework.
+The field of concurrent processing is notable for having multiple applications, architectures and problems that sequential programming paradigms do not have. This exploration is interesting as the primary constraint in the development of quality (as defined by \cite{9126}) concurrent systems is the difficulty that programmers encounter when developing concurrent systems.
 
-Lastly we introduce four commonly used models of concurrency: Threads, Bulk Synchronous Parallel (BSP), Communicating Sequential Processes (CSP) and Message Passing Interface (MPI), and describe these in terms of both the concurrency framework and the CD framework, making some preliminary observations about their ease of use.
+We propose a conceptual model similar to the Open Systems Interconnect (OSI) Model but intended for use in understanding and categorising concurency concepts. This model is called the Concurrency Layers Model (CLM) and we make the argument that all implemented concurrent solutions utilise each layer of the concurrency model. We then categorise some leading concurrent tools using the concurrent layers, showing where in CLM each tool is placed.
 
-\subsection{Concurrency Definitions}
-There exists some confusion around definiton of concurrent systems, with some users mistaking concurrency for paralellism \cite{pike13:_concur_paral}, and others seeing asynchronous function calls as differenct concurrency
+In order to make useful observations about the usability of concurrent tools we require a farmework in which to operate. Using the 'Cognitive Dimensions' (CD) framework \cite{green89:_cognit_dimen_notat} for evaluating cognitive systems, we evaluate some concurrent concepts in terms of some of the CD's 14 dimensions. 
 
-Concurrency refers to systems where there is more than one process existing at a time, whose component processes interact with each other by communication \cite{tpc}.
-There exists a 
+The paper finishes by looking at four popular concurrent tools: Threads, Bulk Synchronous Parallel (BSP), Communicating Sequential Processes (CSP) and Message Passing Interface (MPI), and describe these in terms of both the concurrency framework and the CD framework, making some preliminary observations about their ease of use.
 
-We further make the distinction between distributed and independent systems by whether the executing processes are separated by the presence of a connecting system other than a local memory or cache. Normally a network stack.
 
-There is some debate as to the difference between asynchronous systems and parallel systems, with the former being primarily identified by the existence of non-blocking calls and the latter being identified via independently running processes.
 
-\cite{john90:_munin} ``Shared memory programs are easier to develop than distributed memory (message passing) programs, because the programmer need not worry about the explicit movement of data.''
 
 
 \section{Common Concurrency Issues}
 \subsection{General Issues}
-\cite{shanlu08:_learn_mistak_compr_study_real} examines the problem patterns, manifestation and solutions of 105 randomly selected real world concurrency bugs. This paper only looked at threading and pointers (as this is the dominant concurrent programming paradigm), but the issues explored are broadly applicable to all concurrent programming models.
+\subsubsection{Concurrency Definitions}
+There exists some confusion around the categorisation and definiton of concurrent systems. Some users mistake concurrency for paralellism \cite{pike13:_concur_paral}, where the key distinction is that concurrent programs have multiple processes, however concurrency makes no promises about when or how these processes are run. In order for a program to be parallel it must physically be running more than a single process at a time, not just be architected as a set of seperate processes that run sequentially.
+
+The rise of javascript and its event-driven concurrency model has meant that the ``non-blocking'' function call has become a widely used concurrency tool. There is some confusion as to the difference between asynchronous and parallel concurrent behaviour
 
 \subsubsection{Deadlock}
+\cite{shanlu08:_learn_mistak_compr_study_real} examines the problem patterns, manifestation and solutions of 105 randomly selected real world concurrency bugs. This paper only looked at threading and pointers (as this is the dominant concurrent programming paradigm), but the issues explored are broadly applicable to all concurrent programming models.
 Defined by \cite{shanlu08:_learn_mistak_compr_study_real} as:``Deadlock occurs when two or more operations circularly wait for each other to release the acquired resource''. Whilst being the most well known 
 
 \subsubsection{Atomicity Violation}
@@ -88,18 +87,15 @@ This refers to the problem of keeping global state synchronised across multiple 
 \subsubsection{Reliability}
 In non-distributed systems it is incredibly remote that calls to local memory or local cache will fail, however this is not true when running over a network. 
 
-\section{Concurrency layers}
-Introduce 'axes', with which concurrency models will be evaluated.
-
-Similar to the OSI model of splitting the network stack by each layer, each layer relies on the previous layer in order to function properly and provide services to the next layer up.
-
+\section{Concurrency Layers}
+To aid in discussion of concurrent systems, we propose the usage of the Concurrent Layers Model (CLM) to help describe how the various concurrent tools aid in creation of concurrent systems. Similar to the OSI model of splitting the network stack by each layer, each layer relies on the previous layer in order to function properly and provide services to the next layer up.
 
 \begin{tabulary}{\linewidth}{LLLLL}
  & Layer & Example \\ \hline
 1 & Physical &  Physical computing hardware, network connnections \\
 2 & Communication & MPI, ZeroMQ, Pointers \\
 3 & Concurrency Model  & BSP, Actor, CSP, Threads \\
-4 & Algorithmic Skeleton & Farm, pipe, map, reduce, divide and conquer\\
+4 & Process Graph & Algorithmic skeletons, Directed Acyclic Graphs (DAGs) \\
 5 & Solution Algorithm & FFT, MapReduce, Particle-In-Cell (PIC)
 \end{tabulary}
 
@@ -108,20 +104,20 @@ Similar to the OSI model of splitting the network stack by each layer, each laye
 MPI was orignally conceived as an effort to standardise the increasingly disparate communication protocols that were being developed by each Massively Parallel Processor (MPP) manufacturer \cite{g.96:_pvm_mpi_compar_featur}. It quickly became much more than a communication library, providing a set of implicit concurrency models, algorithmic skeletons and performance enhancing tools. In the parlance of the concurrency layers provided above, this concurrency tool spans multiple concurrency layers (2-4) and this flexibility is likely why MPI has become the de-facto tool for supercomputing applications.
 
 \subsection{Threads}
-Threads represent independent execution contexts within a computing system. They exist at the third level of the concurrency layer, and are an operating system concurrency primitive. 
+Threads represent independent execution contexts within a computing system. They exist at the third level of the concurrency layer, and are an operating system concurrency primitive. Threads were the original construct used to execute concurrent programming and are arguably still the most prevalent, being the primarily method by which most operating systems coordinate the various operations that must be completed to preseent a responsive interface to the user.
 
-Many control structures are available to control the behaviour of threads, including locks, mutexes and semaphores.
-
-They were the original construct used to execute concurrent programming and are arguably still the most prevalent, being the primarily method by which most operating systems coordinate the various operations that must be completed to preseent a responsive interface to the user.
+Threads use pointers to shared data structures in memory, controlling access to these shared data structures via a set of ownership concepts (e.g. locks, semaphore, mutexes). This shared memory communication method has been espoused by some as being a positive \cite{john90:_munin}: ``Shared memory programs are easier to develop than distributed memory (message passing) programs, because the programmer need not worry about the explicit movement of data.'' 
 
 \subsection{Go Channels}
-Communicating Sequential Processes (CSP) is a concurrency paradigm created by \cite{Hoare:1978:CSP:359576.359585} in the late 1970's, and was designed to formalize the patterns of interaction in concurrent systems. The Go programming language was designed with concurrency in mind, and a CSP inspired message passing 'channel' system is included as a core part of the language.
+Go is a relatively new programming language having been released for public usage in 2009 \cite{go:_frequen_asked_quest}, it is a statically typed, compiled language with first class support for concurrency. The ``go'' statement which generates lightweight threads called ``goroutines'', and its associated ``channel'' statement which provides communications between goroutines.
 
-\subsection{PIC}
-Particle-In-Cell simulations are used by physicists when modelling and understanding particle behaviour in the presence of fields (e.g. electromagnetic). These models make use of concurrent programming in two primary ways: firstly, the simulation space can be split into separatelly simulated areas from which global results (from the whole simulation can be attained), and secondly from the method of solving the field  equations which when solved spectrally using FFT can be efficiently split between machines.
+Go's channels are inspired by the Communicating Sequential Processes (CSP) which is a concurrency paradigm created by \cite{Hoare:1978:CSP:359576.359585} in the late 1970's. CSP was designed to formalize the patterns of interaction in concurrent systems, providing a syntax formal method of describing multi-process communication with the aim of provable multi-process correctness.
+
+\subsection{Particle In Cell Simulations}
+Particle-In-Cell (PIC) simulations are used by physicists when modelling and understanding particle behaviour in the presence of various fields (e.g. electromagnetic, gravity). PIC algorithms spread the high computational load across multiple processors in order to efficiently calculate the systems behaviour through time, and exist at the application layer in the CLM. These algorithms are concurrently designed, but require a parallel system in order to complete their calculations in a reasonable time frame. 
 
 \subsection{Apache Spark}
-Developed from work on Resilient Distributed Datasets (RDDs)  \cite{zaharia14:_archit_fast_gener_data_proces_large_clust},  Apache Spark is intended as a general purpose cluster computing environment. It concentrates on a particular algorithmic skeleton (master-slave or farm) and provides four concurrent tools for users of the system:
+Developed from work on Resilient Distributed Datasets (RDDs)  \cite{zaharia14:_archit_fast_gener_data_proces_large_clust},  Apache Spark is intended as a general purpose cluster computing environment. It exists at the application layer by abstracting over the lower concurrency layers, concentrates on problems that require a particular graph setup (master-slave) and provides four concurrent tools for users of the system:
 
 \begin{itemize}
 \item RDD - A distributed and fault tolerant data storage abstraction
@@ -130,30 +126,21 @@ Developed from work on Resilient Distributed Datasets (RDDs)  \cite{zaharia14:_a
 \item Interoperability - Allows data storage and retrieval from popular data storage solutions such as Hadoop or HBase
 \end{itemize}
 
-\section{HCI in concurrency}
+\section{HCI in Concurrency}
 HCI is concerned with the usage, implementation and perception of computers by humans. This paper is interested in the usability of concurrent systems. 
-
-The increasing focus on multiprocessor and distributed systems has meant that 
 
 Concurrent programming poses a particuarly complicated set of problems for programmers due to its non-sequential nature, being hard to reason about, hard to implement and hard to maintain. 
 
 
 Usability is typically considered as a metric of software quality, and is defined by \cite{9126} as: ``The capability of the software product to be understood, learned, used and attractive to the user, when used under specified conditions.'' Normally this definition is aimed at end users encountering finished software products, rather than being aimed at the programmer who is engaged in making the software.
 
-
-
-
-
 Programmers face a separate set of usability issues when writing software.  software patterns are notorious for being hard to reason about and hence have poor usability.
 
-In order to explore the usability of various concurrency models we borrow the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, 
-
-
+In order to explore the usability of various concurrency models we utilise the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, 
 
 which was initially developed to explore the productivity of visual programming environments but has been used more broadly in areas such as programming language evaluation \cite{enpl}, and 
 
 are the users’ intended activities adequately supported by the structure of the information artifact
-
 
 We consider some of the tools used for concurrent programming and examine how these tools aim to provide a more productive, safe or understandable environment for a programmer wishing to create concurrent programs. We approach these aims from the standpoint that many of the porblems present in concurrent programming arise as a result of a lack of 'usability' of concurrent paradigms and tools.
 
@@ -187,7 +174,7 @@ This minimum amount of abstractions improves the visibility of the system
 
 Can also increase the viscosity, any change made to 
 
-\subsection{Threads & Shared Memory}
+\subsection{Threads and Shared Memory}
 The threading model of concurrency typically uses 
 
 
