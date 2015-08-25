@@ -173,39 +173,37 @@ Developed from work on Resilient Distributed Datasets (RDDs)  \cite{zaharia14:_a
 \end{itemize}
 
 \section{HCI in Concurrency}
-HCI is concerned with the usage, implementation and perception of computers by humans. This paper is interested in the usability of concurrent systems. 
-
-Concurrent programming poses a particuarly complicated set of problems for programmers due to its non-sequential nature, being hard to reason about, hard to implement and hard to maintain. 
-
-
-Usability is typically considered as a metric of software quality, and is defined by \cite{9126} as: ``The capability of the software product to be understood, learned, used and attractive to the user, when used under specified conditions.'' Normally this definition is aimed at end users encountering finished software products, rather than being aimed at the programmer who is engaged in making the software.
-
-Programmers face a separate set of usability issues when writing software.  software patterns are notorious for being hard to reason about and hence have poor usability.
+The field of Human-Computer Interaction (HCI) is concerned with how to improve the various facets of interaction between computer systems and their users. If programmers are treated as the end-users, then we become interested in the tools that support the programmers goal of producing quality \cite{9126} software, and in the context of this paper we are interested in tools that support the programmer in creating quality concurrent systems.
 
 In order to explore the usability of various concurrency models we utilise the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, 
+which has been used broadly in areas such as programming language  \cite{enpl} and visual programming environment evaluation \cite{cdf}. The CD framework has 14 dimensions which are:
 
-which was initially developed to explore the productivity of visual programming environments but has been used more broadly in areas such as programming language evaluation \cite{enpl}, and 
+\begin{enumerate}
+\item Abstraction Gradient
+\item Closeness of Mapping
+\item Consistency
+\item Diffuseness
+\item Error-proneness
+\item Hidden Dependencies
+\item Premature Commitment
+\item Progressive Evaluation
+\item Role-expressiveness
+\item Secondary Notation
+\item Viscosity
+\item Visibility
+\end{enumerate}
 
-are the users’ intended activities adequately supported by the structure of the information artifact
-
-We consider some of the tools used for concurrent programming and examine how these tools aim to provide a more productive, safe or understandable environment for a programmer wishing to create concurrent programs. We approach these aims from the standpoint that many of the porblems present in concurrent programming arise as a result of a lack of 'usability' of concurrent paradigms and tools.
-
-
+Using the CD dimensions we consider some of the tools used for concurrent programming and examine how these tools aim to provide a more productive, safe or understandable environment for a programmer wishing to create concurrent systems.
 
 \subsection{Hidden Dependencies}
-
 Recovering the mental representation from the concurrent program is difficult, as there is not necessarily any sequential manner in which the program may operate. As such, for each process in a concurrent system there are hidden dependencies in the form of the other processes in the system, which may be in any number of states and producing any number of communications to the process being considered.
 
 \subsection{Viscosity/Fluidity}
-The viscoisity of a concurrent program is hard to generalize. On one hand, the program may be very fluid if it is an operation that is replicated across many nodes with little or no variance in each nodes funciton. In this case then the program is very fluid as any changes made only need to be made to a single part of the code, and this code will be replicated to all processes. However, if the concurrent program has many different nodes with different behaviours and functions then it may be a viscous procedure to any part of the program, as the flow on effects from that change will need to be tracked and accounted for in the downstream or dependent nodes.
+The viscosity of a concurrent program is hard to generalize. On one hand, the program may be very fluid if it is an operation that is replicated across many nodes with little or no variance in each nodes funciton. In this case then the program is very fluid as any changes made only need to be made to a single part of the code, and this code will be replicated to all processes. However, if the concurrent program has many different nodes with different behaviours and functions then it may be a viscous procedure to any part of the program, as the flow on effects from that change will need to be tracked and accounted for in the downstream or dependent nodes.
 
 \subsection{Premature commitment}
 Concurrent programs encourage some degree of premature commitment from the programmer, particularly along the concurrecy layers. Before being able to attack the root of the probelm they are trying to solve, the programmer will need to take into account the concurrency model, the skeleton algorithm, the physical hardware available, and the communication method. Whether the problem is being solved via a directed acyclic graph (DAG) topology or via a grid topoology will determine the structure of the concurrency model, considerations such as whether messages between processes can be buffered or must be synchronous will affect how they can write the solution.
 
-\subsection{Role Expressiveness}
-Role expressiveness is related to how easily the user can discern the purpose of a particular component, and hence create a mental model of how the system works. Concurrent systems do not offer any particular advantage or disadvantage in this regard; they may provide simpler methods of expressiveness by having each process perform a single easily identifiable role, allowing the user to identify the system purpose as a simple workflow, but more complicdated concurrent systems where each process handles multiple functions within the system may cause the programmer difficulty in identify the role of particular system components. 
-
-Increasing the role expressivenesss of a concurrent system can be thought of as decreasing the number of functions that a particular process is required to complete, thereby allowing the programmer to easily identify the role of each process and its place within the overall system. This may come a cost of less performant system, greater hardware requirements to support the greater number of simpler concurrency nodes, or may be completely impossible if the solution demands. 
 
 \subsection{Hard Mental Operations}
 Not all mental operations are equivalent, and non-sequential program execution is commonly cited as a common hard mental opeation. Many of the concurrent tools try to abstract away as much of the non-sequential operations as possible, leaving the programmer to only need to consider a set of related sequential steps. 
@@ -214,6 +212,7 @@ Not all mental operations are equivalent, and non-sequential program execution i
 The CD framework allows us to examine some (hopefully) orthogonal congnitive concepts and how they relate to some concurrent models. Three models from different levels of the concurrency layer are chosen and examined.
 
 \subsection{MPI}
+
 MPI has a minimum amount of abstractions, using a large but fairly basic api for programmers to utilise in generating their concurrent systems.
 
 This minimum amount of abstractions improves the visibility of the system
@@ -221,19 +220,16 @@ This minimum amount of abstractions improves the visibility of the system
 Can also increase the viscosity, any change made to 
 
 \subsection{Threads and Shared Memory}
+
 The threading model of concurrency typically uses 
 
 
 \subsection{Apache Spark}
-\subsubsection{Hidden Dependencies}
-
-\subsubsection{Viscosity/Fluidity}
-
-\subsubsection{Premature commitment}
-
 \subsubsection{Role Expressiveness}
+Role expressiveness is related to how easily the user can discern the purpose of a particular component, and hence create a mental model of how the system works. Concurrent systems do not offer any particular advantage or disadvantage in this regard; they may provide simpler methods of expressiveness by having each process perform a single easily identifiable role, allowing the user to identify the system purpose as a simple workflow, but more complicdated concurrent systems where each process handles multiple functions within the system may cause the programmer difficulty in identify the role of particular system components. 
 
-\subsubsection{Hard Mental Operations}
+Increasing the role expressivenesss of a concurrent system can be thought of as decreasing the number of functions that a particular process is required to complete, thereby allowing the programmer to easily identify the role of each process and its place within the overall system. This may come a cost of less performant system, greater hardware requirements to support the greater number of simpler concurrency nodes, or may be completely impossible if the solution demands. 
+
 
 \section{Conclusion}
 
