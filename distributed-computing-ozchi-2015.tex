@@ -31,17 +31,62 @@ Abstract goes here.
 \end{abstract}
 
 \section{Introduction}
-The increasing focus on multiprocessor and distributed systems has necessitated a corresponding rise in the need for programming systems that can exploit this hardware. Systems that can take advantage of multiple processors, where they have more than a single process running simultaneously, are described as being concurrent.
 
-This paper explores concurrency with the aim of describing concurrent programming from a HCI viewpoint, particularly in regards to the usability of various concurrency tools such as programming libraries or frameworks.
+% TODO: or parallel, or distributed
 
-The field of concurrent processing is notable for having multiple applications, architectures and problems that sequential programming paradigms do not have. This exploration is interesting as the primary constraint in the development of quality (as defined by \cite{9126}) concurrent systems is the difficulty that programmers encounter when developing concurrent systems.
+It is a truth, universally acknowledged, that every algorithm must be
+in want of an efficient concurrent implementation. The rise of
+multicore computing has highlighted the difficulty of constructing
+such an implementation, so that in many application domains our
+capacity (the number of cores at our disposal) continues to outpace
+our capability (the ability to use those cores efficiently).
+Fundamentally, this is a human factors problem: as Herb Sutter and
+James Larus point out, ``concurrency requires programmers to think in
+a way humans find difficult''\cite[p56]{sutter_software_2005}.
 
-We propose a conceptual model similar to the Open Systems Interconnect (OSI) Model but intended for use in understanding and categorising concurency concepts. This model is called the Concurrency Layers Model (CLM) and we make the argument that all implemented concurrent solutions utilise each layer of the concurrency model. We then categorise some leading concurrent tools using the concurrent layers, showing where in CLM each tool is placed.
+In response to this challenge many programming models, tools and even
+new languages have been created to aid software developers in in
+developing concurrent programs. In many cases, these tools take the
+form of Application Program Interfaces (APIs), where a software
+``interface'' is presented to developers to abstract away (some of)
+the complexity of concurrent execution and synchronisation. Although
+APIs are not the same as graphical interfaces, there is a growing
+interest in in the HCI community (e.g. a special interest group on API
+Usability at \emph{CHI~'09}\cite{daughtry_api_2009}) that these
+interfaces are worth considering from a HCI perspective.
 
-In order to make useful observations about the usability of concurrent tools we require a farmework in which to operate. Using the 'Cognitive Dimensions' (CD) framework \cite{green89:_cognit_dimen_notat} for evaluating cognitive systems, we evaluate some concurrent concepts in terms of some of the CD's 14 dimensions. 
+This paper explores the usability of ``interfaces'' for concurrent
+programming through the lens of Green's \emph{Cognitive Dimensions of
+  Notations} framework\cite{green89:_cognit_dimen_notat}. In
+particular, we consider four popular approaches:
+threads, Bulk Synchronous Parallel (BSP), Communicating Sequential
+Processes (CSP) and Message Passing Interface (MPI).  We begin by
+situating these approaches in the context of the wider concurrent
+programming landscape, before examining the usability (in terms of
+cognitive dimensions) of each one in detail. We conclude by\ldots
 
-The paper finishes by looking at four popular concurrent tools: Threads, Bulk Synchronous Parallel (BSP), Communicating Sequential Processes (CSP) and Message Passing Interface (MPI), and describe these in terms of both the concurrency framework and the CD framework, making some preliminary observations about their ease of use.
+Our claim in this paper is that the difficulty of developing efficient
+concurrent software is a \emph{real} problem, and that it is an
+\emph{HCI} problem. By considering the usability of these APIs from an
+HCI perspective we hope to show how considering the human factors of
+these programmer interfaces can reveal areas for improvement in the
+way we support developers in taking advantage of the computational
+resources at their disposal.
+
+% The field of concurrent processing is notable for having multiple
+% applications, architectures and problems that sequential programming
+% paradigms do not have. This exploration is interesting as the primary
+% constraint in the development of quality (as defined by \cite{9126})
+% concurrent systems is the difficulty that programmers encounter when
+% developing concurrent systems.
+
+% We propose a conceptual model similar to the Open Systems Interconnect
+% (OSI) Model but intended for use in understanding and categorising
+% concurency concepts. This model is called the Concurrency Layers Model
+% (CLM) and we make the argument that all implemented concurrent
+% solutions utilise each layer of the concurrency model. We then
+% categorise some leading concurrent tools using the concurrent layers,
+% showing where in CLM each tool is placed.
 
 
 
@@ -50,6 +95,7 @@ The paper finishes by looking at four popular concurrent tools: Threads, Bulk Sy
 \section{Common Concurrency Issues}
 \subsection{General Issues}
 \subsubsection{Concurrency Definitions}
+
 There exists some confusion around the categorisation and definiton of concurrent systems. Some users mistake concurrency for paralellism \cite{pike13:_concur_paral}, where the key distinction is that concurrent programs have multiple processes, however concurrency makes no promises about when or how these processes are run. In order for a program to be parallel it must physically be running more than a single process at a time, not just be architected as a set of seperate processes that run sequentially.
 
 The rise of javascript and its event-driven concurrency model has meant that the ``non-blocking'' function call has become a widely used concurrency tool. There is some confusion as to the difference between asynchronous and parallel concurrent behaviour
@@ -91,12 +137,12 @@ In non-distributed systems it is incredibly remote that calls to local memory or
 To aid in discussion of concurrent systems, we propose the usage of the Concurrent Layers Model (CLM) to help describe how the various concurrent tools aid in creation of concurrent systems. Similar to the OSI model of splitting the network stack by each layer, each layer relies on the previous layer in order to function properly and provide services to the next layer up.
 
 \begin{tabulary}{\linewidth}{LLLLL}
- & Layer & Example \\ \hline
-1 & Physical &  Physical computing hardware, network connnections \\
-2 & Communication & MPI, ZeroMQ, Pointers \\
-3 & Concurrency Model  & BSP, Actor, CSP, Threads \\
-4 & Process Graph & Algorithmic skeletons, Directed Acyclic Graphs (DAGs) \\
-5 & Solution Algorithm & FFT, MapReduce, Particle-In-Cell (PIC)
+  & Layer & Example \\ \hline
+  1 & Physical &  Physical computing hardware, network connnections \\
+  2 & Communication & MPI, ZeroMQ, Pointers \\
+  3 & Concurrency Model  & BSP, Actor, CSP, Threads \\
+  4 & Process Graph & Algorithmic skeletons, Directed Acyclic Graphs (DAGs) \\
+  5 & Solution Algorithm & FFT, MapReduce, Particle-In-Cell (PIC)
 \end{tabulary}
 
 \section{Concurrency Libraries and Tools}
@@ -190,6 +236,12 @@ The threading model of concurrency typically uses
 \subsubsection{Hard Mental Operations}
 
 \section{Conclusion}
+
+We cannot hope to offer an exhaustive analysis of the concurrent
+programming landscape in this short paper, instead we have focussed on
+a selection of approaches which are representative of some of the
+different levels of abstraction offered to the programmer. We hope
+that\ldots
 
 
 % \begin{figure}
