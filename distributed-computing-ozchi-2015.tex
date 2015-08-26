@@ -214,11 +214,10 @@ In the original paper on CD \cite{enpl}, the author explicitly called out pointe
 The CSP model lends itself to system functionality being formally divided into discrete functions, typically described as functional decomposition. 
 The result of having a functional decomposition of the system is that each process can have its message passing functionality stubbed and emulated. This allows ``progressive evaluation'' of the system as it is generated, allowing the programmer to ``monitor their problem-solving progress at frequent intervals'' \cite{enpl}. This constant testing is possible with other systems, but the decomposition that allows it is a key element of the Go language via the ``go'' statement, and so can be considered more intrinsic.
 
+
+
 \subsection{Apache Spark}
 The directed graph of Apache Spark's master-slave model (called driver-parallel in spark documentation) can be thought of in terms of a real world business problem, for instance workers being given data to analyse or mutate by a manager. In this way the ``closeness of mapping'' of the representation of the solution to the problem is beneficial for the programmer looking to analyse data, which is what the Spark system aims to specialise in.
-
-Increasing the role expressivenesss of a concurrent system can be thought of as decreasing the number of functions that a particular process is required to complete, thereby allowing the programmer to easily identify the role of each process and its place within the overall system. This may come a cost of less performant system, greater hardware requirements to support the greater number of simpler concurrency nodes, or may be completely impossible if the solution demands. 
-
 
 \section{Conclusion}
 
