@@ -106,12 +106,6 @@ Go is a relatively new programming language having been released for public usag
 
 Go's channels are inspired by the Communicating Sequential Processes (CSP) which is a concurrency paradigm created by \cite{Hoare:1978:CSP:359576.359585} in the late 1970's. Go is not the first language to borrow from CSP, and in many ways is less adherent in its approach to CSP implmentation than languages such as Occam or Limbo. CSP was designed to formalize the patterns of interaction in concurrent systems, providing a syntax and formal method of describing multi-process communication with the aim of provable multi-process correctness.
 
-\subsection{Particle In Cell Simulations}
-Particle-In-Cell (PIC) simulations are used by physicists when modelling and understanding particle behaviour in the presence of various fields (e.g. electromagnetic, gravity). PIC algorithms spread the high computational load across multiple processors in order to efficiently calculate the systems behaviour through time, and exist at the application layer in the CLM. These algorithms are concurrently designed, but require a parallel system in order to complete their calculations in a reasonable time frame. 
-
-\subsection{Hadoop}
-The rise of ``Big Data'' as a field of computer science \cite{IBM:2011:UBD:2132803} \cite{james11:_big} has driven the creation of tools to handle large volumes of data, in contrast to the High Performance Computing (HPC) communities problem of dealing with large computational loads. Hadoop was a collection of big data tools to store and analyse large datasets (i.e. larger than memory); it provided both cluster based data storage parallel data analysis \cite{Dean:2008:MSD:1327452.1327492}. 
-
 \subsection{Javascripts Event Driven Concurrency}
 The rise of the Javascript programming language and its event-driven concurrency model has meant that the ``non-blocking'' function call has become a widely used concurrency tool. Concurrency development in Javascript has been driven by both the existence of functions as first class objects, and by the primary usage environment of the language, namely the internet. This combination of language feature and environment has practically translated into Javascript interpreters (e.g. web browsers) providing event driven API's, to which the programmer attaches first class functions. Javascript has only recently provided language level support for concurrency (in the form of futures/promises), whilst all previous concurrent behaviour has been provided by the runtime.
 
