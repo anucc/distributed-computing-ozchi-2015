@@ -27,66 +27,25 @@ Peter Davis, Ben Swift, Henry Gardner\\
 \maketitle
 
 \begin{abstract}
-Abstract goes here.
+This paper explores the usability of ``interfaces'' for concurrent programming through the lens of Green's \emph{Cognitive Dimensions of  Notations} framework\cite{green89:_cognit_dimen_notat}. In particular, we consider four popular concurrent tools: threads and shared memory, Message Passing Interface (MPI), the Go languages inbuilt concurrency primitives and Apache Spark.  We begin by situating these approaches in the context of the wider concurrent programming landscape, before examining the usability (in terms of cognitive dimensions) of each one in detail. We conclude by\ldots
 \end{abstract}
 
 \section{Introduction}
 
 % TODO: or parallel, or distributed
 
-It is a truth, universally acknowledged, that every algorithm must be
-in want of an efficient concurrent implementation. The rise of
-multicore computing has highlighted the difficulty of constructing
-such an implementation, so that in many application domains our
-capacity (the number of cores at our disposal) continues to outpace
-our capability (the ability to use those cores efficiently).
-Fundamentally, this is a human factors problem: as Herb Sutter and
-James Larus point out, ``concurrency requires programmers to think in
-a way humans find difficult''\cite[p56]{sutter_software_2005}.
+It is a truth, universally acknowledged, that every algorithm must be in want of an efficient concurrent implementation. The rise of multicore computing has highlighted the difficulty of constructing
+such an implementation, so that in many application domains our capacity (the number of cores at our disposal) continues to outpace our capability (the ability to use those cores efficiently). Fundamentally, this is a human factors problem: as Herb Sutter and James Larus point out, ``concurrency requires programmers to think in a way humans find difficult''\cite[p56]{sutter_software_2005}.
 
-In response to this challenge many programming models, tools and even
-new languages have been created to aid software developers in in
-developing concurrent programs. In many cases, these tools take the
-form of Application Program Interfaces (APIs), where a software
-``interface'' is presented to developers to abstract away (some of)
-the complexity of concurrent execution and synchronisation. Although
-APIs are not the same as graphical interfaces, there is a growing
-interest in in the HCI community (e.g. a special interest group on API
-Usability at \emph{CHI~'09}\cite{daughtry_api_2009}) that these
+In response to this challenge many programming models, tools and even new languages have been created to aid software developers in developing concurrent programs. In many cases, these tools take the
+form of Application Program Interfaces (APIs), where a software ``interface'' is presented to developers to abstract away (some of) the complexity of concurrent execution and synchronisation. Although
+APIs are not the same as graphical interfaces, there is a growing interest in the HCI community (e.g. a special interest group on API Usability at \emph{CHI~'09}\cite{daughtry_api_2009}) that these
 interfaces are worth considering from a HCI perspective.
 
-This paper explores the usability of ``interfaces'' for concurrent
-programming through the lens of Green's \emph{Cognitive Dimensions of
-  Notations} framework\cite{green89:_cognit_dimen_notat}. In
-particular, we consider four popular approaches:
-threads, Bulk Synchronous Parallel (BSP), Communicating Sequential
-Processes (CSP) and Message Passing Interface (MPI).  We begin by
-situating these approaches in the context of the wider concurrent
-programming landscape, before examining the usability (in terms of
-cognitive dimensions) of each one in detail. We conclude by\ldots
+This paper explores the usability of ``interfaces'' for concurrent programming through the lens of Green's \emph{Cognitive Dimensions of  Notations} framework\cite{green89:_cognit_dimen_notat}. In particular, we consider four popular concurrent tools: threads and shared memory, Message Passing Interface (MPI), the Go languages inbuilt concurrency primitives and Apache Spark.  We begin by situating these approaches in the context of the wider concurrent programming landscape, before examining the usability (in terms of cognitive dimensions) of each one in detail. We conclude by\ldots
 
-Our claim in this paper is that the difficulty of developing efficient
-concurrent software is a \emph{real} problem, and that it is an
-\emph{HCI} problem. By considering the usability of these APIs from an
-HCI perspective we hope to show how considering the human factors of
-these programmer interfaces can reveal areas for improvement in the
-way we support developers in taking advantage of the computational
-resources at their disposal.
+Our claim in this paper is that the difficulty of developing efficient concurrent software is a \emph{real} problem, and that it is an \emph{HCI} problem. By considering the usability of these APIs from an HCI perspective we hope to show how considering the human factors of these programmer interfaces can reveal areas for improvement in the way we support developers in taking advantage of the computational resources at their disposal.
 
-% The field of concurrent processing is notable for having multiple
-% applications, architectures and problems that sequential programming
-% paradigms do not have. This exploration is interesting as the primary
-% constraint in the development of quality (as defined by \cite{9126})
-% concurrent systems is the difficulty that programmers encounter when
-% developing concurrent systems.
-
-% We propose a conceptual model similar to the Open Systems Interconnect
-% (OSI) Model but intended for use in understanding and categorising
-% concurency concepts. This model is called the Concurrency Layers Model
-% (CLM) and we make the argument that all implemented concurrent
-% solutions utilise each layer of the concurrency model. We then
-% categorise some leading concurrent tools using the concurrent layers,
-% showing where in CLM each tool is placed.
 
 \section{Common Concurrency Issues}
 \subsection{General Issues}
@@ -123,19 +82,21 @@ The issues that distributed concurrent systems face include all of the singular 
 \item The network is homogenous
 \end{enumerate}
 
-\subsubsection{Consistency and Replication}
+\subsubsection{Consistency}
 This refers to the problem of keeping global state synchronised across multiple processors, and doing so in a fashion that does not adversely affect performance.
 
 \subsubsection{Reliability}
 In non-distributed systems it is incredibly remote that calls to local memory or local cache will fail, however this is not true when running over a network. 
 
 \section{Concurrency Layers}
+We propose a conceptual model similar to the Open Systems Interconnect (OSI) Model but intended for use in understanding and categorising concurency concepts. This model is called the Concurrency Layers Model (CLM) and we make the argument that all implemented concurrent solutions utilise each layer of the concurrency model. We then categorise some leading concurrent tools using the concurrent layers, showing where in CLM each tool is placed.
+
 To aid in discussion of concurrent systems, we propose the usage of the Concurrent Layers Model (CLM) to help describe how the various concurrent tools aid in creation of concurrent systems. Similar to the OSI model of splitting the network stack by each layer, each layer relies on the previous layer in order to function properly and provide services to the next layer up.
 
 \begin{tabulary}{\linewidth}{LLLLL}
   & Layer & Example \\ \hline
   1 & Physical &  Physical computing hardware, network connnections \\
-  2 & Communication & MPI, ZeroMQ, Pointers \\
+  2 & Communication & MPI\footnote{MPI is more than just a communications library, but it's original purpose was to standardaise communications}, ZeroMQ, Pointers \\
   3 & Concurrency Model  & BSP, Actor, CSP, Threads \\
   4 & Process Graph & Algorithmic skeletons, Directed Acyclic Graphs (DAGs) \\
   5 & Solution Algorithm & FFT, MapReduce, Particle-In-Cell (PIC)
@@ -151,9 +112,9 @@ Threads represent independent execution contexts within a computing system, exis
 Shared memory is a communication method between processes and so exists at the second level of the concurrency layer. Share memory is accessed via pointers given to each thread, and controlling access to these shared data structures via a set of ownership concepts (e.g. locks, semaphore, mutexes).
 
 \subsection{Go Channels}
-Go is a relatively new programming language having been released for public usage in 2009 \cite{go:_frequen_asked_quest}, it is a statically typed, compiled language with first class support for concurrency. The ``go'' statement which generates lightweight threads called ``goroutines'', and its associated ``channel'' statement which provides communications between goroutines.
+Go is a relatively new programming language having been released for public usage in 2009 \cite{go:_frequen_asked_quest}, it is a statically typed, compiled language with first class support for concurrency. Go's concurrency support is derived from its ``go'' statement which generates lightweight threads called ``goroutines'', and its associated ``channel'' statement which provides communications between goroutines.
 
-Go's channels are inspired by the Communicating Sequential Processes (CSP) which is a concurrency paradigm created by \cite{Hoare:1978:CSP:359576.359585} in the late 1970's. CSP was designed to formalize the patterns of interaction in concurrent systems, providing a syntax formal method of describing multi-process communication with the aim of provable multi-process correctness.
+Go's channels are inspired by the Communicating Sequential Processes (CSP) which is a concurrency paradigm created by \cite{Hoare:1978:CSP:359576.359585} in the late 1970's. Go is not the first language to borrow from CSP, and in many ways is less adherent in its approach to CSP implmentation than languages such as Occam or Limbo. CSP was designed to formalize the patterns of interaction in concurrent systems, providing a syntax and formal method of describing multi-process communication with the aim of provable multi-process correctness.
 
 \subsection{Particle In Cell Simulations}
 Particle-In-Cell (PIC) simulations are used by physicists when modelling and understanding particle behaviour in the presence of various fields (e.g. electromagnetic, gravity). PIC algorithms spread the high computational load across multiple processors in order to efficiently calculate the systems behaviour through time, and exist at the application layer in the CLM. These algorithms are concurrently designed, but require a parallel system in order to complete their calculations in a reasonable time frame. 
@@ -171,8 +132,7 @@ Developed from work on Resilient Distributed Datasets (RDDs)  \cite{zaharia14:_a
 \section{HCI in Concurrency}
 The field of Human-Computer Interaction (HCI) is concerned with how to improve the various facets of interaction between computer systems and their users. If programmers are treated as the end-users, then we become interested in the tools that support the programmers goal of producing quality \cite{9126} software, and in the context of this paper we are interested in tools that support the programmer in creating quality concurrent systems.
 
-In order to explore the usability of various concurrency models we utilise the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, 
-which has been used broadly in areas such as programming language \cite{enpl} and visual programming environment evaluation \cite{cdf}. The CD framework has 14 dimensions which are:
+In order to explore the usability of various concurrency models we utilise the Cognitive Dimensions \cite{green89:_cognit_dimen_notat} (CD) framework, which has been used broadly in areas such as programming language \cite{enpl} and visual programming environment evaluation \cite{cdf}. The CD framework has 14 dimensions which are:
 
 \begin{enumerate}
 \item Abstraction Gradient - Types and availability of abstraction mechanisms
@@ -195,41 +155,49 @@ Using the CD dimensions we consider some of the tools used for concurrent progra
 The CD framework allows us to examine some orthogonal cognitive concepts and how they relate to some concurrent models. Four models are chosen and examined.
 
 \subsection{MPI}
-MPI provides a fairly comprehensive toolkit of concurrency enabling functions and a basic runtime system. It does not impose any rules on how the programmer makes use of the toolkit to generate their system, 
+MPI provides a fairly comprehensive toolkit of concurrency enabling functions and a basic runtime system. It does not impose any rules on how the programmer makes use of the toolkit to generate their system, and as the onus for resolution for such issues as reliability and consistency are entirely on the programmer. This increases the ``error-proneness'' of the system, as the programmer is responsible for guaranteeing the safety of the data being operated on.
 
 A key decision making variable within MPI processes is how it identifies itself through both the rank and group integer identifications. This means that the programmer may need to have a understanding of the number of processes that will be run before beginning to create a solution to exploit the available hardware. This is an example of ``premature commitment'', forcing the programmer to make decisions in a particular order, in this case considering how each MPI process will map to available hardware. 
 
 In communication MPI is abstraction tolerant (defined as being between abstraction-hating and abstraction-hungry on the ``abstraction gradient''), providing built in primitive data types for its communication mechanisms, but allowing the programmer to define their own custom data structures. This flexibility in defining communication allows for reduced ``viscosity'' in communication, as the programmer can simplify their communication to a minimum number of ``struct'''s containing relevant communication information.
 
-\subsection{Threads and Shared Memory}
+Secondary notation in the runtime 
 
+Diffuseness multiple concurrent tools such as mutexes, locks semaphores to
+
+
+
+\subsection{Threads and Shared Memory}
 ``Role expressiveness'' is related to how easily the user can discern the purpose of a particular component, and hence create a mental model of how the system works. Threads do not offer any tools to improve the role expressiveness of a component, and any mental model that the programmer holds of the system must be generated through their own engineering decisions in creating the system. We suggest that this is related to threads and shared memory inhabiting the lower layers of the Concurrency Layers Model, as many of the component roles are going to become clear once layers 4 and 5 have been created, as the purpose of the system components will ultimately be defined by these layers.
 
-As mentioned there are a number of control structures available for the discerning programmer looking to create a quality concurrent system. Keeping systems from going into deadlock is normally achieved by having an order in which locks can be applied and released. Keeping locks within this this notional system of lock avoidance is an example of ``viscosity'' in the system, as any new lock must be integrated into the locking order, added to the locking order of any processes that are calling locks, and generally require to be implmented across the entirety of the concurrent system.
+There are a number of control structures available for the discerning programmer looking to create a quality concurrent system. Keeping systems from going into deadlock is normally achieved by having an order in which locks can be applied and released. Keeping locks within this this notional system of lock avoidance is an example of ``viscosity'' in the system, as any new lock must be integrated into the locking order, added to the locking order of any processes that are calling locks, and generally require to be implmented across the entirety of the concurrent system.
 
-In the original paper on CD \cite{enpl}, the author explicitly called out pointers as being ``hard mental operations'', the indirection caused by them being identified as the cause of additional difficulty for programmers. As pointers are the method by which shared memory is accessed, this criticism naturally relates to the shared memory method of communication.
+In the original paper on CD \cite{enpl}, the author explicitly called out pointers as being ``hard mental operations'', the indirection caused by them being identified as the cause of additional difficulty for programmers. As pointers are the method by which shared memory is accessed, this criticism naturally relates to the shared memory method of communication. 
 
 \subsection{Go Channels}
+The CSP model lends itself to system functionality being formally divided into discrete functions and elimination of global state. Elimination of global state removes the possibility of atomicity violation, but does not remove the possibility of deadlock or order violation. Removal of atomicity violation possibilities is an example of ``hidden dependencies'' being removed, as each goroutine is more no longer dependent on the execution state of other goroutines.
 
-The CSP model lends itself to system functionality being formally divided into discrete functions, typically described as functional decomposition. 
-The result of having a functional decomposition of the system is that each process can have its message passing functionality stubbed and emulated. This allows ``progressive evaluation'' of the system as it is generated, allowing the programmer to ``monitor their problem-solving progress at frequent intervals'' \cite{enpl}. This constant testing is possible with other systems, but the decomposition that allows it is a key element of the Go language via the ``go'' statement, and so can be considered more intrinsic.
+The result of having a functional decomposition of the system is that each goroutine can have its message passing functionality stubbed and emulated. This allows ``progressive evaluation'' of the system as it is generated, allowing the programmer to ``monitor their problem-solving progress at frequent intervals'' \cite{enpl}. This constant testing is possible with other systems, but the decomposition that allows it is a key element of the Go language via its first class support for sequential processes.
+
+The channels provide a straightforward method of reading and writing, with the degree of asynchronicity being defined by the level of buffering that the channel has. Whether the channel is synchronous or asynchronous is accepting writes or reads, the notation is the same, allowing ``consistency'' of use.
+
+
+
+
+
 
 
 
 \subsection{Apache Spark}
 The directed graph of Apache Spark's master-slave model (called driver-parallel in spark documentation) can be thought of in terms of a real world business problem, for instance workers being given data to analyse or mutate by a manager. In this way the ``closeness of mapping'' of the representation of the solution to the problem is beneficial for the programmer looking to analyse data, which is what the Spark system aims to specialise in.
 
+One of the key features in Apach Spark is its distributed and fault tolerant Resilient Distributed Datasets (RDD), designed to allow the programmer to focus on their solution rather on network issues. This reduces the ``error-proneness'' of the system, providing an implicit guarantee about the safety of the data that the programmer is manipulating. 
+
+
+The drawback of these systems is that the features bprovied are also potential sources of ``viscosity'' should the programmer wish to use the system in a fashion for which it has not been explicitly designed. Existing decsions at the lower layers of the concurrency layers models, reduce how easy it is for the programmer to implement novel systems.
+
 \section{Conclusion}
-
 We cannot hope to offer an exhaustive analysis of the concurrent programming landscape in this short paper, instead we have focussed on a selection of approaches which are representative of some of the different levels of abstraction offered to the programmer. We hope that \ldots
-
-
-% \begin{figure}
-% \centering
-% \epsfig{file=fly.eps, height=1in, width=1in}
-% \caption{A sample black and white graphic (.eps format)
-% that has been resized with the \texttt{epsfig} command.}
-% \end{figure}
 
 \bibliographystyle{abbrv}
 \bibliography{distributed-computing-ozchi-2015}
